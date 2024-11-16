@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+  app:
+    container_name: nodeapp
+    build:
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - minha_network
+    depends_on:
+      - db
+  db:
+    container_name: postgres
+    image: postgres:17-alpine
+    restart: always
+    tty: true
+    # volumes:
+    #   - ./postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=minhaSenha
+      - POSTGRES_DB=nodedb
+    ports:
+      - "5432:5432"
+    networks:
+      - minha_network
+
+# volumes:
+#   postgres_data:
+
+networks:
+  minha_network:
+    driver: bridge

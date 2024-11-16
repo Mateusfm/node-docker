@@ -1,0 +1,8 @@
+ Remover pasta e seu conteudo
+ sudo rm -r postgres_data/
+
+
+docker build -t mateus/appnode .
+
+
+ docker run --rm --name meunode -it --network nodeapp_minha_network -p=3000:3000 mateus/appnode
