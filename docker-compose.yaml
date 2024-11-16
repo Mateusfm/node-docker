@@ -1,13 +1,24 @@
 version: '3.9'
 
 services:
+  web:
+    container_name: nginx
+    build:
+      context: ./nginx
+      dockerfile: dockerfile
+    networks:
+      - minha_network
+    ports:
+      - "8080:80"
+    depends_on:
+      - app
   app:
     container_name: nodeapp
     build:
       context: .
       dockerfile: dockerfile
-    ports:
-      - "3000:3000"
+    expose: # Expõe a porta apenas internamente
+      - "3000"
     networks:
       - minha_network
     depends_on:
@@ -17,8 +28,8 @@ services:
     image: postgres:17-alpine
     restart: always
     tty: true
-    # volumes:
-    #   - ./postgres_data:/var/lib/postgresql/data
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=minhaSenha
       - POSTGRES_DB=nodedb
@@ -27,8 +38,8 @@ services:
     networks:
       - minha_network
 
-# volumes:
-#   postgres_data:
+volumes:
+  postgres_data:
 
 networks:
   minha_network:
