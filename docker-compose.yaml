@@ -5,7 +5,7 @@ services:
     container_name: nginx
     build:
       context: ./nginx
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
     networks:
       - minha_network
     ports:
@@ -16,7 +16,7 @@ services:
     container_name: nodeapp
     build:
       context: .
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
     expose: # Expõe a porta apenas internamente
       - "3000"
     networks:
